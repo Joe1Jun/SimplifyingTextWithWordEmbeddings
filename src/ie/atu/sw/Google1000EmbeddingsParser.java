@@ -59,6 +59,18 @@ public class Google1000EmbeddingsParser {
 		
 		System.out.println(googleEmbeddingsMap.size());
 	}
+
+
+	public HashMap<String, List<Double>> getGoogleEmbeddingsMap() {
+		return googleEmbeddingsMap;
+	}
+
+
+	public void setGoogleEmbeddingsMap(HashMap<String, List<Double>> googleEmbeddingsMap) {
+		this.googleEmbeddingsMap = googleEmbeddingsMap;
+	}
+	
+	
 	
 	
 	
