@@ -1,5 +1,6 @@
 package ie.atu.sw;
 
+import java.util.*;
 public class Runner {
 	
 	public static void main(String[] args) throws Exception {
@@ -11,6 +12,13 @@ public class Runner {
 		EmbeddingsParser parser = new EmbeddingsParser();
 		
 		parser.parseEmbeddingsFile("word-embeddings2.txt");
+		
+		//HashMap<String, List<Double>> map = parser.getEmbeddingsMap();
+		
+		Google1000EmbeddingsParser parser2 = new Google1000EmbeddingsParser(parser.getEmbeddingsMap());
+		
+		parser2.parseFile("google-1000.txt");
+		
 		
 //		//You may want to include a progress meter in you assignment!
 //		System.out.print(ConsoleColour.YELLOW);	//Change the colour of the console text

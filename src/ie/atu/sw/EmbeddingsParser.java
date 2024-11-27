@@ -10,6 +10,15 @@ import java.util.*;
 public class EmbeddingsParser {
 	
 	private HashMap<String, List<Double>> embeddingsMap = new HashMap<String, List<Double>>();
+	
+	
+	
+
+	
+
+	public void setEmbeddingsMap(HashMap<String, List<Double>> embeddingsMap) {
+		this.embeddingsMap = embeddingsMap;
+	}
 
 	public void parseEmbeddingsFile(String filePath) throws IOException {
 		
@@ -35,15 +44,15 @@ public class EmbeddingsParser {
 				
 				embeddingsMap.put(word, embeddingsValues);
 				
-				for (Map.Entry<String, List<Double>> entry : embeddingsMap.entrySet()) {
-				    String key = entry.getKey();
-				    List<Double> value = entry.getValue();
-				    System.out.println("Key: " + key + ", Value: " + value);
-				}
+//				for (Map.Entry<String, List<Double>> entry : embeddingsMap.entrySet()) {
+//				    String key = entry.getKey();
+//				    List<Double> value = entry.getValue();
+//				    System.out.println("Key: " + key + ", Value: " + value);
+//				}
 				
 			  }
 			
-			
+			System.out.println(embeddingsMap.size());
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -51,13 +60,18 @@ public class EmbeddingsParser {
 		}
 		
 		
+		
+		
 		}
 
 	public void populateMap() {
 		
-		
-	}
+		}
 
+	
+	 public HashMap<String, List<Double>> getEmbeddingsMap() {
+		return embeddingsMap;
+	}
 	
 	
 	
