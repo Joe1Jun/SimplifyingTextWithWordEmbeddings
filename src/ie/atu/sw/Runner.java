@@ -20,6 +20,11 @@ public class Runner {
 		parser2.parseFile("google-1000.txt");
 		
 		
+		TextParser parser3 = new TextParser(parser2.getGoogleEmbeddingsMap(), parser.getEmbeddingsMap());
+		
+		parser3.parseFile("sampletext.txt");
+		
+		
 //		//You may want to include a progress meter in you assignment!
 //		System.out.print(ConsoleColour.YELLOW);	//Change the colour of the console text
 //		int size = 100;							//The size of the meter. 100 equates to 100%

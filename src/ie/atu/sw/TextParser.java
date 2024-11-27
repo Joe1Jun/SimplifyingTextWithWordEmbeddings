@@ -10,14 +10,18 @@ import java.util.List;
 public class TextParser {
 
 	private HashMap<String, List<Double>> googleEmbeddingsMap = new HashMap<String, List<Double>>();
+	private HashMap<String, List<Double>> embeddingsMap = new HashMap<String, List<Double>>();
 	private List<String> simpleText = new ArrayList<String>();
-	private List<Double> similarities = new ArrayList<Double>();
-	private String word;
+	private StringBuilder swappedText = new StringBuilder();
+	
 
-	public TextParser(HashMap<String, List<Double>> googleEmbeddingsMap) {
-
+	public TextParser(HashMap<String, List<Double>> googleEmbeddingsMap, HashMap<String, List<Double>> embeddingsMap) {
+		super();
 		this.googleEmbeddingsMap = googleEmbeddingsMap;
+		this.embeddingsMap = embeddingsMap;
 	}
+
+	
 
 	public void parseFile(String filePath) {
 
@@ -28,12 +32,14 @@ public class TextParser {
 			while ((line = br.readLine()) != null) {
 
 				String[] words = line.split("\\s+");
-				for (int i = 0; i < words.length; i++) {
-					word = words[i];
-					processWord(word);
-
+				for(String word : words) {
+					 word = word.replaceAll("[^a-zA-Z]", "").toLowerCase(); // Normalize
+					String swappedWord = processWord(word);
+					swappedText.append(swappedWord + " ");
+					
 				}
-
+				swappedText.append("\n");
+				
 			}
 
 			
@@ -43,24 +49,55 @@ public class TextParser {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
+		System.out.println(swappedText);
 
 	}
 
 	
 
-	private void processWord(String word) {
-
-		List<Double> valueOfKey = googleEmbeddingsMap.get(word);
-
-		if (googleEmbeddingsMap.containsKey(word)) {
-
-			for (String key : googleEmbeddingsMap.keySet()) {
-
-				List<Double> value = googleEmbeddingsMap.get(key);
-
-				similarities.add(cosineSimilarity(valueOfKey, value));
-			}
+	private String processWord(String word) {
+		// if no word in map default to original word
+		
+		if(!embeddingsMap.containsKey(word)) {
+			 System.out.println("Word not found in embeddings: " + word);
+			return word;
 		}
+		if(googleEmbeddingsMap.containsKey(word)) {
+			return word;
+		}
+		 List<Double> originalEmbedding = embeddingsMap.get(word);
+		 if (originalEmbedding == null) {
+		        return word; // Return unchanged if embedding is null
+		    }
+		
+         String highestScoreWord = word;
+         // adjust the similarity score threshhold
+         double highestSimilarity = 0.7;
+         
+         for(String key : googleEmbeddingsMap.keySet()) {
+        	
+        	 
+        	 if(!key.equals(word)) {
+        		 List<Double> loopEmbedding = googleEmbeddingsMap.get(key);
+        		 if(loopEmbedding == null) {
+        			 continue;
+        		 }
+        		 double similarity = cosineSimilarity(originalEmbedding, loopEmbedding);
+        		 
+        		 
+        		 if(similarity > highestSimilarity) {
+        			 highestSimilarity = similarity;
+        			 highestScoreWord = key;
+        		 }
+        	 }
+         }
+         System.out.println("Replaced '" + word + "' with '" + highestScoreWord + "'");
+         return highestScoreWord;
+         
+		
+			
 	}
 
 	private double cosineSimilarity(List<Double> vecA, List<Double> vecB) {

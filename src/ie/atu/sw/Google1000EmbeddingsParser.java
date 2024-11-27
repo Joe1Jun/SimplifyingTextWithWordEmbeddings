@@ -46,18 +46,18 @@ public class Google1000EmbeddingsParser {
 		
 		
 
-		for (Map.Entry<String, List<Double>> entry : googleEmbeddingsMap.entrySet()) {
-		    String key = entry.getKey();
-		    List<Double> value = entry.getValue();
-		    System.out.println("Key: " + key + ", Value: " + value);
-		}
-		
-		for(String word : wordsNot) {
-			System.out.println(word);
-		}
-		
-		
-		System.out.println(googleEmbeddingsMap.size());
+//		for (Map.Entry<String, List<Double>> entry : googleEmbeddingsMap.entrySet()) {
+//		    String key = entry.getKey();
+//		    List<Double> value = entry.getValue();
+//		    System.out.println("Key: " + key + ", Value: " + value);
+//		}
+//		
+//		for(String word : wordsNot) {
+//			System.out.println(word);
+//		}
+//		
+//		
+//		System.out.println(googleEmbeddingsMap.size());
 	}
 
 
