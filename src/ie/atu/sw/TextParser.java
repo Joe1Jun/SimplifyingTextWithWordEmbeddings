@@ -16,7 +16,7 @@ public class TextParser {
 	
 
 	public TextParser(HashMap<String, List<Double>> googleEmbeddingsMap, HashMap<String, List<Double>> embeddingsMap) {
-		super();
+		
 		this.googleEmbeddingsMap = googleEmbeddingsMap;
 		this.embeddingsMap = embeddingsMap;
 	}
@@ -74,7 +74,7 @@ public class TextParser {
 		
          String highestScoreWord = word;
          // adjust the similarity score threshhold
-         double highestSimilarity = 0.7;
+         double highestSimilarity = -1;
          
          for(String key : googleEmbeddingsMap.keySet()) {
         	
@@ -129,6 +129,25 @@ public class TextParser {
 		// Return the cosine similarity, which is the dot product divided by the
 		// product of the magnitudes (norms) of the two vectors.
 		return dotProduct / (normA * normB);
+	}
+	
+	public double euclideanDistance(List<Double> vecA, List<Double> vecB) {
+		// Validate that the vectors have the same length.
+		if (vecA.size() != vecB.size()) {
+			throw new IllegalArgumentException("Vectors must be of the same length.");
+		}
+
+		double sumSquaredDifferences = 0.0;
+
+		// Calculate the sum of the squared differences between corresponding elements.
+		for (int i = 0; i < vecA.size(); i++) {
+			double difference = vecA.get(i) - vecB.get(i);
+			sumSquaredDifferences += Math.pow(difference, 2);
+		}
+
+		// Compute and return the square root of the sum of squared differences,
+		// which is the Euclidean distance.
+		return Math.sqrt(sumSquaredDifferences);
 	}
 	
 	

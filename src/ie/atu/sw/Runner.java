@@ -4,25 +4,15 @@ import java.util.*;
 public class Runner {
 	
 	public static void main(String[] args) throws Exception {
-		//You should put the following code into a menu or Menu class
 		
-		Menu menu = new Menu();
+		ObjectManager objectManager = new ObjectManager();
+		
+		
+		
+		Menu menu = new Menu(objectManager);
 		menu.start();
 		
-		EmbeddingsParser parser = new EmbeddingsParser();
-		
-		parser.parseEmbeddingsFile("word-embeddings2.txt");
-		
-		//HashMap<String, List<Double>> map = parser.getEmbeddingsMap();
-		
-		Google1000EmbeddingsParser parser2 = new Google1000EmbeddingsParser(parser.getEmbeddingsMap());
-		
-		parser2.parseFile("google-1000.txt");
-		
-		
-		TextParser parser3 = new TextParser(parser2.getGoogleEmbeddingsMap(), parser.getEmbeddingsMap());
-		
-		parser3.parseFile("sampletext.txt");
+
 		
 		
 //		//You may want to include a progress meter in you assignment!
