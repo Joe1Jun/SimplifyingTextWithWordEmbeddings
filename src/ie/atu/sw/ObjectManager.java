@@ -7,13 +7,13 @@ public class ObjectManager  {
 	 private Scanner input = new Scanner(System.in);
 	 private AbstractEmbeddingsParser embeddingsParser;
 	 private AbstractEmbeddingsParser google1000EmbeddingsParser;
-	 private AbstractEmbeddingsParser textParser;
+	 private TextParser textParser;
 	 private SimilarityCalculator calculate;
 	 
 	 
 	public ObjectManager() {
 		
-		this.embeddingsParser = new EmbeddingsParser();
+		this.embeddingsParser = new GloveEmbeddingsParser();
 		this.google1000EmbeddingsParser = null;
 		this.textParser = null;
 	
@@ -21,12 +21,13 @@ public class ObjectManager  {
 	public void specifyEmbeddingsFile() throws IOException {
 		
 		embeddingsParser.specifyFilePath();
-		embeddingsParser.getFilePath();
-		embeddingsParser.loadEmbeddings();
+		embeddingsParser.parseFile();
 		this.google1000EmbeddingsParser = new Google1000EmbeddingsParser(embeddingsParser.getEmbeddingsMap());
 		
 		
 	}
+	
+	
 	
 	
      public void specifyGoogle1000File() throws IOException {
@@ -34,17 +35,15 @@ public class ObjectManager  {
     	 if(embeddingsParser.getEmbeddingsMap() == null) {
     		 System.out.println("Please parse embedings file first");
     	 }
-		
-		 System.out.println("Specify embeddings file path");
-		 String path = input.nextLine();
-         google1000EmbeddingsParser.parseFile(path);
+    	 google1000EmbeddingsParser.specifyFilePath();
+         google1000EmbeddingsParser.parseFile();
          
          
-         this.textParser = new TextParser(google1000EmbeddingsParser.getGoogleEmbeddingsMap(), embeddingsParser.getEmbeddingsMap());
+         this.textParser = new TextParser(google1000EmbeddingsParser.getEmbeddingsMap());
 		
 	}
      
-     public void execute() {
+     public void execute() throws IOException {
     	 if(embeddingsParser.getEmbeddingsMap() == null) {
     		 System.out.println("Please parse embeddings file");
     	 }

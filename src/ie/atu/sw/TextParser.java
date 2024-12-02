@@ -16,7 +16,7 @@ public class TextParser {
 	private StringBuilder swappedText = new StringBuilder();
 	
 
-	public TextParser(Map<String, List<Double>> googleEmbeddingsMap, Map<String, List<Double>> embeddingsMap) {
+	public TextParser(Map<String, List<Double>> googleEmbeddingsMap) {
 		
 		this.googleEmbeddingsMap = googleEmbeddingsMap;
 		this.embeddingsMap = embeddingsMap;
