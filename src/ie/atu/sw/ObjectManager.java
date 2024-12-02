@@ -39,7 +39,7 @@ public class ObjectManager  {
          google1000EmbeddingsParser.parseFile();
          
          
-         this.textParser = new TextParser(google1000EmbeddingsParser.getEmbeddingsMap());
+         this.textParser = new TextParser(google1000EmbeddingsParser.getEmbeddingsMap(), embeddingsParser.getEmbeddingsMap());
 		
 	}
      
@@ -47,10 +47,9 @@ public class ObjectManager  {
     	 if(embeddingsParser.getEmbeddingsMap() == null) {
     		 System.out.println("Please parse embeddings file");
     	 }
-    	 System.out.println("Specify text to be simplified");
-    	 String path = input.nextLine();
     	 
-    	 textParser.parseFile(path);
+    	 
+    	 textParser.parseFile();
     	 
     	 
      }

@@ -23,6 +23,7 @@ public abstract class AbstractEmbeddingsParser implements Parser {
 	                processLine(line);
 	            }
 	            System.out.println(embeddingsMap.size());
+	           
 	        } catch (IOException e) {
 	            System.out.println("Error loading file: " + e.getMessage());
 	        }
@@ -51,6 +52,14 @@ public abstract class AbstractEmbeddingsParser implements Parser {
     protected abstract void processLine(String line);
 
 
+    
+    protected void printEmbeddingsMap() {
+        System.out.println("Embeddings Map:");
+        for (Map.Entry<String, List<Double>> entry : embeddingsMap.entrySet()) {
+            System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
+        }
+        System.out.println("Total entries: " + embeddingsMap.size());
+    }
 	
     
     

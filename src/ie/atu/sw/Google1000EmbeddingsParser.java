@@ -10,7 +10,7 @@ import java.util.*;
 public class Google1000EmbeddingsParser extends AbstractEmbeddingsParser {
 	
 	
-	private final Map<String, List<Double>> sourceEmbeddings;
+	private  Map<String, List<Double>> sourceEmbeddings;
 
     public Google1000EmbeddingsParser(Map<String, List<Double>> sourceEmbeddings) {
         
@@ -30,19 +30,13 @@ public class Google1000EmbeddingsParser extends AbstractEmbeddingsParser {
 		
 
 
-	
-
-
-	
-	
-
 	@Override
 	public void processLine(String line) {
 		String word = line.trim().toLowerCase();
 		
 		
 		if(sourceEmbeddings.containsKey(word)) { 
-			embeddingsMap.put(word, embeddingsMap.get(word));
+			embeddingsMap.put(word, sourceEmbeddings.get(word));
 			
 		}
 		

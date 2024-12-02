@@ -8,74 +8,70 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TextParser {
+public class TextParser extends AbstractEmbeddingsParser {
 
 	private Map<String, List<Double>> googleEmbeddingsMap = new HashMap<String, List<Double>>();
-	private Map<String, List<Double>> embeddingsMap = new HashMap<String, List<Double>>();
-	private List<String> simpleText = new ArrayList<String>();
+	private Map<String, List<Double>> gloveEmbeddingsMap = new HashMap<String, List<Double>>();
 	private StringBuilder swappedText = new StringBuilder();
 	
+	
 
-	public TextParser(Map<String, List<Double>> googleEmbeddingsMap) {
+	public TextParser(Map<String, List<Double>> googleEmbeddingsMap, Map<String, List<Double>> gloveEmbeddingsMap) {
 		
 		this.googleEmbeddingsMap = googleEmbeddingsMap;
-		this.embeddingsMap = embeddingsMap;
+		this.gloveEmbeddingsMap = gloveEmbeddingsMap;
 	}
 
 	
+     @Override
+	public void parseFile() {
+    	System.out.println(googleEmbeddingsMap.size());
+    	System.out.println(gloveEmbeddingsMap.size());
+    	 specifyFilePath();
+    	 loadFile();
 
-	public void parseFile(String filePath) {
-
-		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-
-			String line;
-
-			while ((line = br.readLine()) != null) {
-
-				String[] words = line.split("\\s+");
-				for(String word : words) {
-					 word = word.replaceAll("[^a-zA-Z]", "").toLowerCase(); // Normalize
-					String swappedWord = processWord(word);
-					swappedText.append(swappedWord + " ");
-					
-				}
-				swappedText.append("\n");
-				
-			}
-
-			
-			
-			
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		
-		System.out.println(swappedText);
+         System.out.println(swappedText);
 
 	}
+     
+     
+     @Override
+ 	protected void processLine(String line) {
+    	 String[] words = line.split("\\s+");
+			for(String word : words) {
+				 word = word.replaceAll("[^a-zA-Z]", "").toLowerCase(); // Normalize
+				String swappedWord = processWord(word);
+				swappedText.append(swappedWord + " ");
+				
+			}
+			swappedText.append("\n");
+ 		
+ 	}
+     
+     
+     
+     
 
 	
 
 	private String processWord(String word) {
 		// if no word in map default to original word
 		
-		if(!embeddingsMap.containsKey(word)) {
+		if(!gloveEmbeddingsMap.containsKey(word)) {
 			 System.out.println("Word not found in embeddings: " + word);
 			return word;
 		}
 		if(googleEmbeddingsMap.containsKey(word)) {
 			return word;
 		}
-		 List<Double> originalEmbedding = embeddingsMap.get(word);
+		 List<Double> originalEmbedding = gloveEmbeddingsMap.get(word);
 		 if (originalEmbedding == null) {
 		        return word; // Return unchanged if embedding is null
 		    }
 		
          String highestScoreWord = word;
          // adjust the similarity score threshhold
-         double highestSimilarity = -1;
+         double highestSimilarity = 0.6;
          
          for(String key : googleEmbeddingsMap.keySet()) {
         	
@@ -150,6 +146,9 @@ public class TextParser {
 		// which is the Euclidean distance.
 		return Math.sqrt(sumSquaredDifferences);
 	}
+
+
+	
 	
 	
 	
