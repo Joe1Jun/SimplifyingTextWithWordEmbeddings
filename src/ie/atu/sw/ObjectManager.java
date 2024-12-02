@@ -5,9 +5,10 @@ import java.util.Scanner;
 
 public class ObjectManager  {
 	 private Scanner input = new Scanner(System.in);
-	 private EmbeddingsParser embeddingsParser;
-	 private Google1000EmbeddingsParser google1000EmbeddingsParser;
-	 private TextParser textParser;
+	 private AbstractEmbeddingsParser embeddingsParser;
+	 private AbstractEmbeddingsParser google1000EmbeddingsParser;
+	 private AbstractEmbeddingsParser textParser;
+	 private SimilarityCalculator calculate;
 	 
 	 
 	public ObjectManager() {
@@ -15,14 +16,13 @@ public class ObjectManager  {
 		this.embeddingsParser = new EmbeddingsParser();
 		this.google1000EmbeddingsParser = null;
 		this.textParser = null;
+	
 	}
-	
-	
 	public void specifyEmbeddingsFile() throws IOException {
 		
-		System.out.println("Specify embeddings file path");
-		String path = input.nextLine();
-		embeddingsParser.parseEmbeddingsFile(path);
+		embeddingsParser.specifyFilePath();
+		embeddingsParser.getFilePath();
+		embeddingsParser.loadEmbeddings();
 		this.google1000EmbeddingsParser = new Google1000EmbeddingsParser(embeddingsParser.getEmbeddingsMap());
 		
 		

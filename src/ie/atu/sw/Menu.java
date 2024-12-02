@@ -76,7 +76,8 @@ public class Menu {
 	        switch (choice) {
 	            case 1 -> objectManager.specifyEmbeddingsFile();
 	            case 2 -> objectManager.specifyGoogle1000File();
-	           case 3 -> objectManager.execute();
+	            
+	            case 4 -> objectManager.execute();
 	          //  case 4 -> objectManager.execute();
 	           
 	            

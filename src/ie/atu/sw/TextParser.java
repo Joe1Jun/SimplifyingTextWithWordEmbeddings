@@ -6,16 +6,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TextParser {
 
-	private HashMap<String, List<Double>> googleEmbeddingsMap = new HashMap<String, List<Double>>();
-	private HashMap<String, List<Double>> embeddingsMap = new HashMap<String, List<Double>>();
+	private Map<String, List<Double>> googleEmbeddingsMap = new HashMap<String, List<Double>>();
+	private Map<String, List<Double>> embeddingsMap = new HashMap<String, List<Double>>();
 	private List<String> simpleText = new ArrayList<String>();
 	private StringBuilder swappedText = new StringBuilder();
 	
 
-	public TextParser(HashMap<String, List<Double>> googleEmbeddingsMap, HashMap<String, List<Double>> embeddingsMap) {
+	public TextParser(Map<String, List<Double>> googleEmbeddingsMap, Map<String, List<Double>> embeddingsMap) {
 		
 		this.googleEmbeddingsMap = googleEmbeddingsMap;
 		this.embeddingsMap = embeddingsMap;

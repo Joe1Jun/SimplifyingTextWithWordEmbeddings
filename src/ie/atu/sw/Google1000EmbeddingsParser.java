@@ -7,20 +7,20 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Google1000EmbeddingsParser {
+public class Google1000EmbeddingsParser extends AbstractEmbeddingsParser {
 	
-	private HashMap<String, List<Double>> googleEmbeddingsMap = new HashMap<String, List<Double>>();
-	private HashMap<String, List<Double>> wordEmbeddingsMap = new HashMap<String, List<Double>>();
-	
-	
-	public Google1000EmbeddingsParser(HashMap<String, List<Double>> wordEmbeddingsMap) {
-		
-		this.wordEmbeddingsMap = wordEmbeddingsMap;
-		
-		}
+	public Google1000EmbeddingsParser(Map<String, List<Double>> embeddingsMap, String filePath) {
+		super(embeddingsMap, filePath);
+		// TODO Auto-generated constructor stub
+	}
+
+	private Map<String, List<Double>> googleEmbeddingsMap = new HashMap<String, List<Double>>();
+	private Map<String, List<Double>> wordEmbeddingsMap = new HashMap<String, List<Double>>();
 	
 	
-	public void parseFile(String filePath) {
+	
+	@Override
+	public void loadEmbeddings(String filePath) {
 		
 		List<String> wordsNot = new ArrayList<String>();
 		
@@ -61,13 +61,21 @@ public class Google1000EmbeddingsParser {
 	}
 
 
-	public HashMap<String, List<Double>> getGoogleEmbeddingsMap() {
+	public Map<String, List<Double>> getGoogleEmbeddingsMap() {
 		return googleEmbeddingsMap;
 	}
 
 
 	public void setGoogleEmbeddingsMap(HashMap<String, List<Double>> googleEmbeddingsMap) {
 		this.googleEmbeddingsMap = googleEmbeddingsMap;
+	}
+
+	
+
+	@Override
+	protected void processLine(String line) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

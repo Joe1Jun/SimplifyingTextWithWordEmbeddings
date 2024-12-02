@@ -3,6 +3,8 @@ package ie.atu.sw;
 import java.util.*;
 public class Runner {
 	
+	//Use parent classe construtors to intialise the othe objects. 
+	
 	public static void main(String[] args) throws Exception {
 		
 		ObjectManager objectManager = new ObjectManager();

@@ -7,20 +7,31 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-public class EmbeddingsParser {
+public class EmbeddingsParser extends AbstractEmbeddingsParser {
 	
-	private HashMap<String, List<Double>> embeddingsMap = new HashMap<String, List<Double>>();
+	 private Scanner input;
 	
 	
-	
-
-	
-
-	public void setEmbeddingsMap(HashMap<String, List<Double>> embeddingsMap) {
-		this.embeddingsMap = embeddingsMap;
+	public EmbeddingsParser(Map<String, List<Double>> embeddingsMap, String filePath, Scanner input) {
+		super(embeddingsMap, filePath);
+		this.input = input;
 	}
 
-	public void parseEmbeddingsFile(String filePath) throws IOException {
+
+	
+	
+    
+
+	
+
+	
+
+       @Override
+     public void loadEmbeddings(String filePath) throws IOException {
+		
+		if(filePath == null) {
+			specifyFilePath();
+		}
 		
 		try (BufferedReader br = new BufferedReader(new FileReader(filePath))){
 			
@@ -44,15 +55,12 @@ public class EmbeddingsParser {
 				
 				embeddingsMap.put(word, embeddingsValues);
 				
-//				for (Map.Entry<String, List<Double>> entry : embeddingsMap.entrySet()) {
-//				    String key = entry.getKey();
-//				    List<Double> value = entry.getValue();
-//				    System.out.println("Key: " + key + ", Value: " + value);
-//				}
+
 				
 			  }
 			
 			System.out.println(embeddingsMap.size());
+			
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -64,15 +72,43 @@ public class EmbeddingsParser {
 		
 		}
 
-	public void populateMap() {
-		
-		}
-
 	
-	 public HashMap<String, List<Double>> getEmbeddingsMap() {
+
+	@Override
+	 public Map<String, List<Double>> getEmbeddingsMap() {
 		return embeddingsMap;
 	}
+
 	
+	public void specifyFilePath() {
+		System.out.println("Specify embeddings file path");
+		filePath = input.nextLine();
+		
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+	
+	
+	public String getFilePath() {
+		return filePath;
+	}
+
+
+
+
+
+
+
+
+
+
+	@Override
+	protected void processLine(String line) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 
